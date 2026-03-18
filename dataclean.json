@@ -1,0 +1,72 @@
+{
+  "centre": "Institut Tecnològic de Barcelona (ITB)",
+  "fase": "FASE 1 - Diagnosi ASG",
+  "data_extracció": "2025-03",
+  "indicadors_asg": [
+    {
+      "categoria": "Suministros Básicos (Ambiental)",
+      "indicador": "Consum d'Energia Elèctrica",
+      "unitat": "kWh",
+      "descripcio": "Consum elèctric del centre basat en l'informe de la planta fotovoltaica.",
+      "registres": [
+        {
+          "periode": "Gener 2025",
+          "valor": 4500.5,
+          "font_dades": "Plant Report_ITB_01-2025.xlsx"
+        }
+      ]
+    },
+    {
+      "categoria": "Suministros Básicos (Ambiental)",
+      "indicador": "Consum d'Aigua",
+      "unitat": "m3",
+      "descripcio": "Volum d'aigua facturat a les instal·lacions.",
+      "registres": [
+        {
+          "periode": "Últim trimestre facturat",
+          "valor": 145.0,
+          "font_dades": "Aigua-image001.png / Aigua-image002.png"
+        }
+      ]
+    },
+    {
+      "categoria": "Consumibles (Ambiental/Econòmic)",
+      "indicador": "Consum de Paper (Folis DIN A4)",
+      "unitat": "paquets_500_fulls",
+      "descripcio": "Paquets de folis comprats per a impressió i administració.",
+      "registres": [
+        {
+          "periode": "Comanda Lyreco",
+          "valor": 40,
+          "font_dades": "F036-Lyreco-MaterialOficinaRecanvisPissarraPaper.png"
+        }
+      ]
+    },
+    {
+      "categoria": "Consumibles i Neteja (Ambiental/Social)",
+      "indicador": "Paper Higiènic i Eixugamans",
+      "unitat": "unitats_industrials",
+      "descripcio": "Rotllos i paquets destinats als lavabos del centre.",
+      "registres": [
+        {
+          "periode": "Facturació Neteges",
+          "valor": 120,
+          "font_dades": "F055-Neteges.png / F056-Neteges.png"
+        }
+      ]
+    },
+    {
+      "categoria": "Social i Governança",
+      "indicador": "Ús de telèfons mòbils a l'aula",
+      "unitat": "percentatge_mitjà",
+      "descripcio": "Mitjana d'alumnes amb el mòbil a la taula, reflectint el compliment de la normativa interna.",
+      "registres": [
+        {
+          "periode": "Novembre 2024 - Gener 2025",
+          "valor": 28.5,
+          "font_dades": "INDICADORS Mobils a l_aula 2024-2025.pdf"
+        }
+      ]
+    }
+  ]
+}
