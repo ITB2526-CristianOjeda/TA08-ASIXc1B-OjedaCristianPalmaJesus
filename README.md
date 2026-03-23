@@ -4,12 +4,6 @@ Este repositorio contiene la primera fase del proyecto de sostenibilidad del **I
 
 ---
 
-## 🎥 Presentación del Proyecto
-Puedes ver nuestra explicación detallada del diagnóstico en el siguiente enlace:
-👉 **[Enlace al Vídeo de la Fase 1](AQUÍ_PEGA_TU_LINK_DE_YOUTUBE_O_DRIVE)**
-
----
-
 ## 📋 Tabla de Aspectos Materiales Priorizados
 
 Siguiendo las directrices del **Marco Europeo de Sostenibilidad (CSRD)**, hemos identificado los puntos clave donde el centro tiene mayor impacto:
