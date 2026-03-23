@@ -28,9 +28,6 @@ Siguiendo las directrices del **Marco Europeo de Sostenibilidad (CSRD)**, hemos 
 
 ## 📂 Archivos de la Fase
 * **`dataclean.json`**: Estructura de datos con los indicadores seleccionados para la futura calculadora.
-* **`ITB_Leaks/`**: Carpeta con las evidencias analizadas (facturas, informes, PDFs).
+* **`Video_fase1`**: Carpeta con las evidencias analizadas (facturas, informes, PDFs).
 
 ---
-
-## 🚀 Próximos Pasos
-La información recopilada en esta fase servirá como motor de datos para la **Fase 2**, donde empezaremos a diseñar la lógica de nuestra calculadora de ahorro energético y social.
