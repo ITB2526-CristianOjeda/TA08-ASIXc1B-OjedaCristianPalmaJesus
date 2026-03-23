@@ -1,15 +1,36 @@
+# 📊 Diagnóstico ASG - Fase 1: ITB Sostenible
+
+Este repositorio contiene la primera fase del proyecto de sostenibilidad del **Instituto Tecnológico de Barcelona (ITB)**. El objetivo de esta etapa es transformar los datos de los "ITB Leaks" en indicadores claros para analizar nuestro impacto ambiental, social y de gobernanza.
+
 ---
 
-## 📊 Taula d'Aspectes Materials Prioritzats (Fase 1)
+## 🎥 Presentación del Proyecto
+Puedes ver nuestra explicación detallada del diagnóstico en el siguiente enlace:
+👉 **[Enlace al Vídeo de la Fase 1](AQUÍ_PEGA_TU_LINK_DE_YOUTUBE_O_DRIVE)**
 
-Seguint el marc de la **Directiva Europea CSRD**, hem identificat i prioritzat els següents aspectes clau per a la sostenibilitat de l'ITB:
+---
 
-| Aspecte Material | Dimensió (ASG) | Prioritat | Justificació (Dades ITB Leaks) | ODS Relacionats |
+## 📋 Tabla de Aspectos Materiales Priorizados
+
+Siguiendo las directrices del **Marco Europeo de Sostenibilidad (CSRD)**, hemos identificado los puntos clave donde el centro tiene mayor impacto:
+
+| Aspecto Material | Dimensión (ASG) | Prioridad | Justificación (Datos ITB Leaks) | ODS Relacionados |
 | :--- | :--- | :--- | :--- | :--- |
-| **Eficiència Energètica** | Ambiental | **Alta** | Anàlisi del *Plant Report*: dependència crítica de la xarxa i fotovoltaica. | 7 (Energia) i 13 (Acció climàtica) |
-| **Benestar i Atenció (Mòbils)** | Social | **Alta** | Dades del PDF d'indicadors: mitjana del **28,5%** d'ús a l'aula. | 4 (Educació de qualitat) |
-| **Gestió de l'Aigua** | Ambiental | **Mitjana** | Factures d'aigua mostren un consum constant que cal optimitzar. | 6 (Aigua neta) |
-| **Consum de Paper i Residus** | Ambiental | **Mitjana** | Comandes a Lyreco: alt volum de residus de paper i tòners. | 12 (Consum responsable) |
-| **Governança i Normativa** | Governança | **Alta** | Transparència en la despesa i compliment de normes de convivència. | 16 (Pau i institucions sòlides) |
+| **Eficiencia Energética** | Ambiental | **Alta** | Análisis del *Plant Report*: dependencia de la red y gestión de la planta fotovoltaica. | 7 (Energía) y 13 (Acción climática) |
+| **Bienestar y Atención** | Social | **Alta** | Datos de indicadores: media del **28,5%** de uso del móvil en el aula. | 4 (Educación de calidad) |
+| **Gestión del Agua** | Ambiental | **Media** | Facturas de agua que muestran un consumo constante a optimizar. | 6 (Agua limpia) |
+| **Consumo de Papel** | Ambiental | **Media** | Pedidos a Lyreco: alto volumen de residuos de papel y consumibles. | 12 (Consumo responsable) |
+| **Gobernanza y Normas** | Gobernanza | **Alta** | Transparencia en la gestión y cumplimiento de normas de convivencia. | 16 (Paz e instituciones sólidas) |
 
-> **Nota:** Aquesta priorització s'ha realitzat aplicant el principi de **Doble Materialitat**, avaluant tant l'impacte del centre en l'entorn com l'impacte dels riscos ambientals/socials en el funcionament de l'institut.
+> **Nota sobre Doble Materialidad:** Hemos evaluado tanto cómo el ITB afecta al medio ambiente (huella de carbono/residuos) como la importancia de estos factores para nuestra comunidad educativa.
+
+---
+
+## 📂 Archivos de la Fase
+* **`dataclean.json`**: Estructura de datos con los indicadores seleccionados para la futura calculadora.
+* **`ITB_Leaks/`**: Carpeta con las evidencias analizadas (facturas, informes, PDFs).
+
+---
+
+## 🚀 Próximos Pasos
+La información recopilada en esta fase servirá como motor de datos para la **Fase 2**, donde empezaremos a diseñar la lógica de nuestra calculadora de ahorro energético y social.
