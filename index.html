@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Calculator - Sustainable ITB (IT)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <h1>🌱 Sustainable ITB: "Green IT" Calculator</h1>
+                <p>ESG Diagnosis - Phase 3 | IT and Communications Department</p>
+            </div>
+            <button id="eco-toggle" class="eco-btn" title="Enable energy saving (OLED Screens)">
+                🌙 Eco-Mode
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="card fade-in">
+            <h2>📊 Current Status (Consolidated Data 2024 - 2025)</h2>
+            <div class="grid-4">
+                <div class="stat-box">
+                    <h3>⚡ Electricity</h3>
+                    <p class="number">4500.5 <span class="unit">kWh/month</span></p>
+                    <small>(Data: January 2025)</small>
+                </div>
+                <div class="stat-box">
+                    <h3>💧 Water</h3>
+                    <p class="number">48.3 <span class="unit">m³/month</span></p>
+                    <small>(2024 average invoices)</small>
+                </div>
+                <div class="stat-box">
+                    <h3>📄 Consumables (Office)</h3>
+                    <p class="number">40 <span class="unit">packs/order</span></p>
+                    <small>(Lyreco Orders 2024)</small>
+                </div>
+                <div class="stat-box">
+                    <h3>🧴 Consumables (Cleaning)</h3>
+                    <p class="number">120 <span class="unit">units/invoice</span></p>
+                    <small>(2024 Billing)</small>
+                </div>
+                <div class="stat-box" style="border: 2px dashed var(--accent-green);">
+                    <h3>🖥️ Maintenance & WEEE</h3>
+                    <p class="number">50 <span class="unit">kg/estimated</span></p>
+                    <small>(Baseline projection)</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="card fade-in delay-1">
+            <h2>🧮 Forecast Calculator</h2>
+            <p>Select the period to see the consumption projection applying seasonal cycles and temporal trends.</p>
+
+            <div class="buttons-group">
+                <button id="btn-year" class="btn primary">📅 Next Year Calculation (12 months)</button>
+                <button id="btn-course" class="btn secondary">🎓 School Year Calculation (Sep - Jun)</button>
+            </div>
+
+            <div id="results" class="results-grid hidden">
+                </div>
+        </section>
+
+        <section class="card fade-in delay-2">
+            <h2>📉 IT Action Plan: How to reduce impact by 30% in 3 years</h2>
+
+            <div class="info-box" style="display: flex; flex-direction: column; gap: 15px; padding: 20px; background: #e8f5e9; border-radius: 8px; margin-bottom: 35px;">
+                <div>
+                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">🎯 Measurable Objectives</h3>
+                    <p style="margin-left: 10px;">Reduce standby power consumption in classrooms, extend hardware lifespan (circular economy), and reduce office materials by 30% compared to 2025.</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">📊 Key Indicators</h3>
+                    <p style="margin-left: 10px;">Monthly kWh billed for servers/classrooms, kg of WEEE managed, and paper packs.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--light-green); padding-bottom: 10px;">🛠️ Concrete Actions ("Green IT" - Phase 2)</h3>
+
+            <div class="accordion" style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 35px;">
+
+                <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">⚡ Energy Efficiency: Total Classroom Automation</h4>
+
+                    <div style="margin-bottom: 15px;">
+                        <span style="display: inline-block; background: #ffcdd2; color: #b71c1c; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">Critique of current practice</span>
+                        <p style="margin-left: 5px;">Relying on users to turn off equipment is inefficient.</p>
+                    </div>
+
+                    <div>
+                        <span style="display: inline-block; background: #c8e6c9; color: #1b5e20; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">New Technological Proposal</span>
+                        <ul style="list-style-type: disc; margin-left: 25px; margin-top: 5px;">
+                            <li style="margin-bottom: 5px;">Implementation of mandatory Group Policies (GPOs).</li>
+                            <li style="margin-bottom: 5px;">Use of automated scripts (Cron, Wake-on-LAN) on the main server.</li>
+                            <li>Turn off all computers and monitors outside school hours to eliminate standby consumption.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">🖥️ WEEE Management and Second Life (Circular Economy)</h4>
+                    <p style="margin-bottom: 12px;">Inspired by the circular economy practices of Google's servers, the procedure will be:</p>
+
+                    <ul style="list-style-type: decimal; margin-left: 25px;">
+                        <li style="margin-bottom: 8px;"><strong>Prior repair:</strong> Before discarding equipment to the Internal Recycling Point, attempts will be made to repair or upgrade the hardware.</li>
+                        <li><strong>Upgrade:</strong> Add SSD disks or install lightweight Linux distributions to extend their lifespan.</li>
+                    </ul>
+                </div>
+
+                <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">💧 Water, Paper & 🗑️ Maintenance</h4>
+
+                    <ul style="list-style-type: disc; margin-left: 25px;">
+                        <li style="margin-bottom: 8px;"><strong>Consumables:</strong> Replacement of single-use containers with bulk systems and digitization of procedures.</li>
+                        <li><strong>Critical materials:</strong> For obsolete equipment, exclusive transport through an Authorized Waste Manager to avoid the loss of materials such as lithium or coltan.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline" style="background: var(--white); padding: 20px; border: 1px solid var(--light-green); border-radius: 8px;">
+                <h3 style="margin-bottom: 20px; border-bottom: none;">🗓️ 3-Year Roadmap</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 20px; padding-left: 25px; border-left: 4px solid var(--primary-green); position: relative;">
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 1 (Short-term):</strong>
+                        <p style="margin: 5px 0;">Creation of the Internal WEEE Recycling Point and partial digitization.</p>
+                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Goal: 10% Reduction</em>
+                    </li>
+                    <li style="margin-bottom: 20px; padding-left: 25px; border-left: 4px solid var(--accent-green); position: relative;">
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 2 (Medium-term):</strong>
+                        <p style="margin: 5px 0;">Implementation and testing of Cron and GPO scripts on the main server to power off classrooms.</p>
+                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Goal: 20% Reduction</em>
+                    </li>
+                    <li style="padding-left: 25px; border-left: 4px solid #c8e6c9; position: relative;">
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 3 (Long-term):</strong>
+                        <p style="margin: 5px 0;">Fully integrated "Green IT" culture, massive PC repair with Linux/SSDs.</p>
+                        <em style="color: #555; background: #e8f5e9; padding: 2px 8px; border-radius: 4px; color: var(--primary-green); font-weight: bold;">Goal achieved: 30% Reduction</em>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: var(--light-green); padding: 15px; border-radius: 8px; text-align: center; margin-top: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <p style="font-weight: bold; color: var(--dark-text); margin: 0; font-size: 1.1rem;">
+                    ✅ The impact of these improvements can now be quantified in the calculator above (green box "-30%").
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Developed for Phase 3 of the Sustainable ITB Project (IT Department).</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

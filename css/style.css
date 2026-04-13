@@ -1,0 +1,266 @@
+:root {
+    --primary-green: #2e7d32;
+    --light-green: #e8f5e9;
+    --accent-green: #81c784;
+    --dark-text: #1b5e20;
+    --white: #ffffff;
+    --shadow: 0 8px 16px rgba(46, 125, 50, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f4f9f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Hero */
+.hero {
+    background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+    color: var(--white);
+    padding: 60px 0;
+    text-align: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    box-shadow: var(--shadow);
+    margin-bottom: -30px;
+}
+
+.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* Cards & Layout */
+main {
+    position: relative;
+    z-index: 10;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--primary-green);
+}
+
+h2 {
+    color: var(--primary-green);
+    margin-bottom: 20px;
+    border-bottom: 2px dashed var(--light-green);
+    padding-bottom: 10px;
+}
+
+/* Grid for Stats */
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-box {
+    background: var(--light-green);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    background: var(--accent-green);
+    color: var(--white);
+}
+
+.stat-box .number {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+.stat-box:hover .number, .stat-box:hover h3 { color: var(--white); }
+
+/* Buttons */
+.buttons-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn.primary { background: var(--primary-green); color: var(--white); }
+.btn.primary:hover { background: #1b5e20; transform: scale(1.05); }
+
+.btn.secondary { background: var(--accent-green); color: var(--dark-text); }
+.btn.secondary:hover { background: #66bb6a; color: white; transform: scale(1.05); }
+
+/* Results */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.result-item {
+    padding: 15px;
+    border: 1px solid var(--accent-green);
+    border-radius: 8px;
+    background: #fafafa;
+}
+.result-item.reduced { background: #e8f5e9; border-color: var(--primary-green); }
+
+.hidden { display: none; }
+
+/* Timeline & Accordion */
+.accordion-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-left: 4px solid var(--accent-green);
+}
+.timeline ul {
+    list-style-type: none;
+    padding-left: 20px;
+    border-left: 3px solid var(--primary-green);
+}
+.timeline li {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+.timeline li::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-green);
+    border-radius: 50%;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--primary-green);
+    margin-top: 40px;
+}
+
+/* =========================================
+   🌙 ECO-MODE (DARK THEME) - CORREGIT
+   ========================================= */
+
+/* Estil del botó */
+.eco-btn {
+    background-color: #333;
+    color: #fff;
+    border: 2px solid transparent;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.eco-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Quan l'Eco-Mode està activat, FORCEM els colors de fons i text */
+body.eco-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+/* Forcem el fons fosc i text clar a totes les caixes i targetes */
+body.eco-mode .card,
+body.eco-mode .stat-box,
+body.eco-mode .info-box,
+body.eco-mode .accordion-item,
+body.eco-mode .timeline,
+body.eco-mode .result-item {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    border-color: #333 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+}
+
+/* Assegurem que tots els textos, títols i llistes siguin clars */
+body.eco-mode h1,
+body.eco-mode h2,
+body.eco-mode h4,
+body.eco-mode p,
+body.eco-mode li,
+body.eco-mode strong,
+body.eco-mode small {
+    color: #e0e0e0 !important;
+}
+
+/* Donem un verd més brillant als subtítols perquè destaquin sobre fons negre */
+body.eco-mode h3 {
+    color: #81c784 !important;
+}
+
+/* Ajustos específics del botó en mode fosc */
+body.eco-mode .eco-btn {
+    background-color: #fdd835 !important;
+    color: #121212 !important;
+}
+
+/* Correcció per a les etiquetes de colors del Pla d'Acció que havien quedat blanques */
+body.eco-mode span {
+    background-color: #333 !important;
+    color: #81c784 !important;
+    border: 1px solid #555;
+}
+
+body.eco-mode div[style*="background: #e8f5e9"],
+body.eco-mode div[style*="background: var(--light-green)"] {
+    background-color: #2a3b2c !important; /* Verd molt fosc */
+}
+
+/* Ajuste específico para que las unidades quepan bien en los cuadros */
+.unit {
+    font-size: 1.0rem !important; /* Lletra més petita */
+    display: block;               /* Força que salti a la línia de sota */
+    line-height: 1.2;
+    margin-top: 5px;              /* Una mica d'espai amb el número 40 */
+}
