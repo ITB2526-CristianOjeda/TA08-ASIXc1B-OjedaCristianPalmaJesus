@@ -264,3 +264,65 @@ body.eco-mode div[style*="background: var(--light-green)"] {
     line-height: 1.2;
     margin-top: 5px;              /* Una mica d'espai amb el número 40 */
 }
+
+/* =========================================
+   BOTONS DE DESGLOSSAMENT (ITB LEAKS)
+   ========================================= */
+.desglossament {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+/* Forma de Botó */
+.desglossament summary {
+    cursor: pointer;
+    background-color: var(--light-green);
+    color: var(--dark-text);
+    border: 1px solid var(--primary-green);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    list-style: none; /* Amaga la fletxeta */
+    display: inline-block; /* Fa que tingui mida de botó i no ocupi tota la línia */
+    transition: all 0.2s ease;
+}
+
+/* Efecte en passar el ratolí */
+.desglossament summary:hover {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+/* Amaga la fletxeta en navegadors antics o Safari */
+.desglossament summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Caixa de la llista un cop obert */
+.desglossament ul {
+    margin-top: 10px;
+    padding: 10px 10px 10px 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-green);
+    color: var(--dark-text);
+    line-height: 1.4;
+}
+
+/* Ajustos pel mode fosc (Eco-Mode) */
+body.eco-mode .desglossament summary {
+    background-color: #333 !important;
+    color: #81c784 !important;
+    border-color: #81c784 !important;
+}
+
+body.eco-mode .desglossament summary:hover {
+    background-color: #81c784 !important;
+    color: #121212 !important;
+}
+
+body.eco-mode .desglossament ul {
+    background: rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+}

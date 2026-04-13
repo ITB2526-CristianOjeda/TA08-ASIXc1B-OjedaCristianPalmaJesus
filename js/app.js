@@ -1,26 +1,25 @@
-// Dades base extretes del dataclean.json (ITB Leaks 2024 - Gener 2025)
+// Dades base ITB Leaks
 const bases = {
-    electricitat: 4500.5, // kWh/mes (Font: Plant Report_ITB_01-2025)
-    aigua: 48.33,         // m3/mes (Font: Mitjana factures Aigües de Barcelona 2024)
-    paper: 40,            // paquets/comanda (Font: Factures Lyreco 2024)
-    neteja: 120,          // unitats/factura (Font: Factures Neteges 2024)
-    manteniment: 50       // kg RAEE i residus (Estimat per a projecte IT)
+    electricitat: 4500.5,
+    aigua: 48.33,
+    paper: 40,
+    neteja: 120,
+    manteniment: 50
 };
 
-// Cicles Estacionals i Tendències Temporals (Multiplicadors per mes)
-// Gener=0, Febrer=1, ..., Desembre=11
+// ESTRATÈGIES RUBRICA: Tendències i Cicles Estacionals
 const estacionalitat = {
     electricitat: [1.1, 1.1, 1.0, 0.9, 0.9, 0.8, 0.3, 0.2, 0.9, 1.0, 1.1, 1.2],
-    aigua:        [0.9, 0.9, 1.0, 1.1, 1.2, 1.2, 0.5, 0.1, 1.0, 0.9, 0.9, 0.9],
-    paper:        [1.0, 1.0, 1.2, 1.0, 1.2, 1.5, 0.2, 0.0, 1.5, 1.0, 1.0, 1.0],
-    neteja:       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.2, 0.0, 1.2, 1.0, 1.0, 1.0],
-    manteniment:  [1.0, 1.05, 0.95, 1.0, 1.02, 0.98, 1.0, 0.5, 1.05, 1.0, 0.98, 1.0]
+    aigua:        [0.9, 0.9, 1.0, 1.1, 1.2, 1.4, 0.8, 0.1, 1.2, 1.0, 0.9, 0.9],
+    paper:        [1.0, 1.0, 1.2, 1.0, 1.2, 1.5, 0.1, 0.0, 1.8, 1.1, 1.0, 1.0],
+    neteja:       [1.0, 1.0, 1.0, 1.0, 1.0, 1.2, 0.3, 0.1, 1.4, 1.0, 1.0, 1.0],
+    manteniment:  [1.0, 1.0, 1.0, 1.0, 1.0, 1.5, 0.5, 0.1, 1.2, 1.0, 1.0, 1.0]
 };
 
-// Funció per calcular el consum segons els mesos seleccionats
 function calcularConsum(mesosActius) {
     let totals = { electricitat: 0, aigua: 0, paper: 0, neteja: 0, manteniment: 0 };
 
+    // Càlcul base del consum D'UN SOL ANY (o període) aplicant l'estacionalitat
     for (let i = 0; i < 12; i++) {
         if (mesosActius.includes(i)) {
             totals.electricitat += bases.electricitat * estacionalitat.electricitat[i];
@@ -30,76 +29,90 @@ function calcularConsum(mesosActius) {
             totals.manteniment += bases.manteniment * estacionalitat.manteniment[i];
         }
     }
+
+    // Com molt bé has deduït, JA NO MULTIPLIQUEM. Ens quedem amb el consum d'AQUELL any.
     return totals;
 }
 
-// Generar el HTML de resultats (Inclou el càlcul normal i l'objectiu -30%)
 function mostrarResultats(titol, totals) {
     const divResultats = document.getElementById('results');
-    divResultats.innerHTML = `<h3>Resultats: ${titol}</h3>`;
+    const selectAnys = document.getElementById('input-years');
+    const seleccioText = selectAnys.options[selectAnys.selectedIndex].text;
+    const numYears = parseInt(selectAnys.value);
+
+    let descompte = 0;
+    if (numYears === 1) descompte = 0.10;
+    else if (numYears === 2) descompte = 0.20;
+    else if (numYears >= 3) descompte = 0.30;
+
+    const textPercentatge = `-${descompte * 100}%`;
+
+    divResultats.innerHTML = `<h3 style="width: 100%; grid-column: 1 / -1; margin-bottom: 15px; color: var(--primary-green); border-bottom: 2px dashed var(--light-green);">
+        Resultats d'aquell any (${titol}) - ${seleccioText.replace('👉 ', '').replace('⭐ ', '')}
+    </h3>`;
     divResultats.classList.remove('hidden');
 
+    // Els detalls EXACTES de les factures ITB Leaks
     const dadesMostrar = [
-        { nom: '⚡ Electricitat', valor: totals.electricitat, unitat: 'kWh' },
-        { nom: '💧 Aigua', valor: totals.aigua, unitat: 'm³' },
-        { nom: '📄 Paper', valor: totals.paper, unitat: 'paquets' },
-        { nom: '🧴 Neteja', valor: totals.neteja, unitat: 'unitats' },
-        { nom: '🖥️ Manteniment i RAEE', valor: totals.manteniment, unitat: 'kg' }
+        { nom: '⚡ Consum Elèctric', valor: totals.electricitat, unitat: 'kWh', detalls: "Consum aules informàtica, servidors i inversors solars (Plant Report)." },
+        { nom: '💧 Consum d\'Aigua', valor: totals.aigua, unitat: 'm³', detalls: "Consum instal·lacions, lavabos i neteja (Aigües de Barcelona)." },
+        { nom: '📄 Consumibles d\'Oficina', valor: totals.paper, unitat: 'paquets', detalls: "Paper Navigator A4, Marcadors Pilot Begreen i esborradors Faibo (Lyreco)." },
+        { nom: '🧴 Productes Neteja', valor: totals.neteja, unitat: 'unitats', detalls: "Rotlles industrials secamans, Gel WC, lleixiu i bosses escombraries." },
+        { nom: '🖥️ Manteniment (RAEE)', valor: totals.manteniment, unitat: 'kg', detalls: "Renovació equips (Discs SSD NVMe, RAM) i reciclatge de peces desclassificades." }
     ];
 
     dadesMostrar.forEach(dada => {
-        // Càlcul del -30% segons el pla de millora de la Fase 2
-        const valorMillorat = dada.valor * 0.70;
+        const valorMillorat = dada.valor * (1 - descompte);
 
         divResultats.innerHTML += `
-            <div class="result-item">
-                <h4>${dada.nom}</h4>
-                <p>Consum projectat: <strong>${dada.valor.toFixed(2)} ${dada.unitat}</strong></p>
-                <div class="result-item reduced" style="margin-top: 10px; padding: 10px;">
-                    <small>Amb Pla Reducció "Green IT" (-30%):</small><br>
-                    <strong style="color: var(--primary-green);">${valorMillorat.toFixed(2)} ${dada.unitat}</strong>
+            <div class="result-item" style="padding: 15px; border: 1px solid var(--accent-green); border-radius: 8px; background: #fafafa; display: flex; flex-direction: column;">
+                <h4 style="font-size: 1rem;">${dada.nom}</h4>
+                <p style="margin-bottom: 5px;">Sense Pla IT: <br><strong>${dada.valor.toFixed(1)} ${dada.unitat}</strong></p>
+                
+                <details class="desglossament" style="margin-bottom: 10px;">
+                    <summary>ℹ️ Què s'està calculant?</summary>
+                    <ul style="list-style-type: disc;">
+                        <li>${dada.detalls}</li>
+                    </ul>
+                </details>
+
+                <div style="margin-top: auto; padding: 10px; background: #e8f5e9; border: 1px solid var(--primary-green); border-radius: 5px;">
+                    <small>Amb Pla IT (${textPercentatge}):</small><br>
+                    <strong style="color: var(--primary-green); font-size: 1.1rem;">${valorMillorat.toFixed(1)} ${dada.unitat}</strong>
                 </div>
             </div>
         `;
     });
 }
 
-// Event Listeners dels botons
+// Botó: Any Sencer
 document.getElementById('btn-year').addEventListener('click', () => {
-    // Tots els 12 mesos
-    const mesosAny = Array.from({length: 12}, (_, i) => i);
+    const mesosAny = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     const resultatsAny = calcularConsum(mesosAny);
-    mostrarResultats("Pròxim Any (Gener a Desembre)", resultatsAny);
+    mostrarResultats(`Any Complet`, resultatsAny);
 });
 
+// Botó: Curs Escolar
 document.getElementById('btn-course').addEventListener('click', () => {
-    // Setembre(8) a Juny(5)
     const mesosCurs = [8, 9, 10, 11, 0, 1, 2, 3, 4, 5];
     const resultatsCurs = calcularConsum(mesosCurs);
-    mostrarResultats("Curs Escolar (Setembre a Juny)", resultatsCurs);
+    mostrarResultats(`Període Set. a Juny`, resultatsCurs);
 });
 
-// =========================================
-// 🌙 LÒGICA DE L'ECO-MODE (DARK MODE)
-// =========================================
+// LÒGICA ECO-MODE
 const ecoBtn = document.getElementById('eco-toggle');
 const body = document.body;
 
-// 1. Comprovar si l'usuari ja tenia l'Eco-Mode guardat al navegador
 if (localStorage.getItem('ecoMode') === 'enabled') {
     body.classList.add('eco-mode');
-    ecoBtn.innerHTML = '☀️ Normal Mode';
+    ecoBtn.innerHTML = '☀️ Mode Normal';
 }
 
-// 2. Afegir l'esdeveniment de clic al botó
 ecoBtn.addEventListener('click', () => {
-    // Activa o desactiva la classe 'eco-mode' al <body>
     body.classList.toggle('eco-mode');
-
-    // Comprova l'estat actual i guarda'l al localStorage
     if (body.classList.contains('eco-mode')) {
         localStorage.setItem('ecoMode', 'enabled');
-        ecoBtn.innerHTML = '☀️ Normal Mode';
+        ecoBtn.innerHTML = '☀️ Mode Normal';
     } else {
         localStorage.setItem('ecoMode', 'disabled');
         ecoBtn.innerHTML = '🌙 Eco-Mode';

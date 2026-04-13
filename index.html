@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESG Calculator - Sustainable ITB (IT)</title>
+    <title>Calculadora ASG - ITB Sostenible (Informàtica)</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .unit { font-size: 0.75rem !important; display: block; margin-top: 2px; }
+        .select-estilitzat {
+            padding: 10px; border-radius: 5px; border: 2px solid var(--primary-green);
+            font-family: 'Poppins', sans-serif; font-size: 1rem; width: 100%; max-width: 350px;
+            background-color: white; cursor: pointer; color: var(--dark-text); font-weight: 600;
+        }
+    </style>
 </head>
 <body>
     <header class="hero">
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div>
-                <h1>🌱 Sustainable ITB: "Green IT" Calculator</h1>
-                <p>ESG Diagnosis - Phase 3 | IT and Communications Department</p>
+                <h1>🌱 ITB Sostenible: Calculadora "Green IT"</h1>
+                <p>Diagnosi ASG - Fase 3 | Família d'Informàtica i Comunicacions</p>
             </div>
-            <button id="eco-toggle" class="eco-btn" title="Enable energy saving (OLED Screens)">
+            <button id="eco-toggle" class="eco-btn" title="Activar estalvi energètic (Pantalles OLED)">
                 🌙 Eco-Mode
             </button>
         </div>
@@ -22,136 +30,186 @@
 
     <main class="container">
         <section class="card fade-in">
-            <h2>📊 Current Status (Consolidated Data 2024 - 2025)</h2>
+            <h2 style="margin-bottom: 5px;">📊 Línia Base: Consum Mitjà Mensual</h2>
+            <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem;">Aquestes són les dades base mensuals extretes dels ITB Leaks. La calculadora inferior utilitza aquests valors per projectar el futur.</p>
+
             <div class="grid-4">
                 <div class="stat-box">
-                    <h3>⚡ Electricity</h3>
-                    <p class="number">4500.5 <span class="unit">kWh/month</span></p>
-                    <small>(Data: January 2025)</small>
+                    <h3>⚡ Electricitat</h3>
+                    <p class="number">4500.5 <span class="unit">kWh / mes</span></p>
+                    <small>(Font: Plant Report Gener 2025)</small>
+                    <details class="desglossament">
+                        <summary>Veure desglossament</summary>
+                        <ul>
+                            <li>Consum aules informàtica i servidors</li>
+                            <li>Dades dels inversors fotovoltaics (Plant Report)</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="stat-box">
-                    <h3>💧 Water</h3>
-                    <p class="number">48.3 <span class="unit">m³/month</span></p>
-                    <small>(2024 average invoices)</small>
+                    <h3>💧 Aigua</h3>
+                    <p class="number">48.33 <span class="unit">m³ / mes</span></p>
+                    <small>(Font: Aigües de Barcelona 2024)</small>
+                    <details class="desglossament">
+                        <summary>Veure desglossament</summary>
+                        <ul>
+                            <li>Consum d'instal·lacions (Aigües de BCN)</li>
+                            <li>Lavabos i servei general de neteja</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="stat-box">
-                    <h3>📄 Consumables (Office)</h3>
-                    <p class="number">40 <span class="unit">packs/order</span></p>
-                    <small>(Lyreco Orders 2024)</small>
+                    <h3>📄 Consumibles (Oficina)</h3>
+                    <p class="number">40 <span class="unit">paquets DIN A4 / mes</span></p>
+                    <small>(Font: Comandes Lyreco 2024)</small>
+                    <details class="desglossament">
+                        <summary>Veure desglossament</summary>
+                        <ul>
+                            <li>Paper Navigator Universal A4 80g</li>
+                            <li>Marcadors Pilot Begreen (Verd/Roig/Negre/Blau)</li>
+                            <li>Esborrador Pissarra Blanca Faibo i Recanvis</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="stat-box">
-                    <h3>🧴 Consumables (Cleaning)</h3>
-                    <p class="number">120 <span class="unit">units/invoice</span></p>
-                    <small>(2024 Billing)</small>
+                    <h3>🧴 Consumibles (Neteja)</h3>
+                    <p class="number">120 <span class="unit">rotlles industrials / mes</span></p>
+                    <small>(Font: Facturació Neteges 2024)</small>
+                    <details class="desglossament">
+                        <summary>Veure desglossament</summary>
+                        <ul>
+                            <li>Rotlle industrial secamans (120 unitats)</li>
+                            <li>Gel WC i Lleixiu netejador</li>
+                            <li>Bosses d'escombraries</li>
+                        </ul>
+                    </details>
                 </div>
                 <div class="stat-box" style="border: 2px dashed var(--accent-green);">
-                    <h3>🖥️ Maintenance & WEEE</h3>
-                    <p class="number">50 <span class="unit">kg/estimated</span></p>
-                    <small>(Baseline projection)</small>
+                    <h3>🖥️ Manteniment (RAEE)</h3>
+                    <p class="number">50 <span class="unit">kg RAEE / mes</span></p>
+                    <small>(Projecció projecte IT)</small>
+                    <details class="desglossament">
+                        <summary>Veure desglossament</summary>
+                        <ul>
+                            <li>Recanvis d'ordinador (Discs SSD NVMe)</li>
+                            <li>Memòria RAM i cables de xarxa</li>
+                            <li>Peces desclassificades o avariades</li>
+                        </ul>
+                    </details>
                 </div>
             </div>
         </section>
 
         <section class="card fade-in delay-1">
-            <h2>🧮 Forecast Calculator</h2>
-            <p>Select the period to see the consumption projection applying seasonal cycles and temporal trends.</p>
+            <h2 style="margin-bottom: 10px;">Calculadora de Previsions i Estacionalitat</h2>
+            <p style="margin-bottom: 20px;">Aquesta eina aplica multiplicadors estacionals (ex: pics d'aigua a l'estiu, paper a inici de curs) per generar previsions reals.</p>
 
-            <div class="buttons-group">
-                <button id="btn-year" class="btn primary">📅 Next Year Calculation (12 months)</button>
-                <button id="btn-course" class="btn secondary">🎓 School Year Calculation (Sep - Jun)</button>
+            <div style="margin-bottom: 20px; text-align: center; background: #e8f5e9; padding: 20px; border-radius: 8px; border: 1px solid var(--accent-green);">
+                <label for="input-years" style="font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 10px;">Selecciona el període futur a preveure:</label>
+                <select id="input-years" class="select-estilitzat">
+                    <option value="1">2025 - 2026 (Pròxim Any)</option>
+                    <option value="2">2026 - 2027 (2n Any de projecció)</option>
+                    <option value="3">2027 - 2028 (3r Any - Objectiu 30% Assolit)</option>
+                    <option value="4">2028 - 2029 (4t Any de projecció)</option>
+                    <option value="5">2029 - 2030 (5è Any de projecció)</option>
+                </select>
             </div>
 
-            <div id="results" class="results-grid hidden">
-                </div>
+            <div class="buttons-group">
+                <button id="btn-year" class="btn primary">📅 Calcular Any Sencer (12 mesos)</button>
+                <button id="btn-course" class="btn secondary">🎓 Calcular Curs Escolar (Set - Juny)</button>
+            </div>
+
+            <div id="results" class="results-grid hidden"></div>
         </section>
 
         <section class="card fade-in delay-2">
-            <h2>📉 IT Action Plan: How to reduce impact by 30% in 3 years</h2>
+            <h2>📉 Plan de Acción IT: Cómo reducir el impacto un 30% en 3 años</h2>
 
             <div class="info-box" style="display: flex; flex-direction: column; gap: 15px; padding: 20px; background: #e8f5e9; border-radius: 8px; margin-bottom: 35px;">
                 <div>
-                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">🎯 Measurable Objectives</h3>
-                    <p style="margin-left: 10px;">Reduce standby power consumption in classrooms, extend hardware lifespan (circular economy), and reduce office materials by 30% compared to 2025.</p>
+                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">🎯 Objetivos medibles</h3>
+                    <p style="margin-left: 10px;">Reducir el consumo eléctrico en reposo en las aulas, extender la vida útil del hardware (economía circular) y reducir los materiales de oficina en un 30% respecto a 2025.</p>
                 </div>
                 <div>
-                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">📊 Key Indicators</h3>
-                    <p style="margin-left: 10px;">Monthly kWh billed for servers/classrooms, kg of WEEE managed, and paper packs.</p>
+                    <h3 style="color: var(--primary-green); margin-bottom: 8px; border-bottom: none;">📊 Indicadores clave</h3>
+                    <p style="margin-left: 10px;">kWh mensuales facturados por servidores/aulas, kg de RAEE gestionados y paquetes de papel.</p>
                 </div>
             </div>
 
-            <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--light-green); padding-bottom: 10px;">🛠️ Concrete Actions ("Green IT" - Phase 2)</h3>
+            <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--light-green); padding-bottom: 10px;">🛠️ Acciones concretas ("Green IT" - Fase 2)</h3>
 
             <div class="accordion" style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 35px;">
 
                 <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
-                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">⚡ Energy Efficiency: Total Classroom Automation</h4>
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">⚡ Eficiencia energética: Automatización total de aulas</h4>
 
                     <div style="margin-bottom: 15px;">
-                        <span style="display: inline-block; background: #ffcdd2; color: #b71c1c; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">Critique of current practice</span>
-                        <p style="margin-left: 5px;">Relying on users to turn off equipment is inefficient.</p>
+                        <span style="display: inline-block; background: #ffcdd2; color: #b71c1c; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">Crítica a la práctica actual</span>
+                        <p style="margin-left: 5px;">Depender de los usuarios para apagar los equipos es ineficiente.</p>
                     </div>
 
                     <div>
-                        <span style="display: inline-block; background: #c8e6c9; color: #1b5e20; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">New Technological Proposal</span>
+                        <span style="display: inline-block; background: #c8e6c9; color: #1b5e20; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px;">Nueva propuesta tecnológica</span>
                         <ul style="list-style-type: disc; margin-left: 25px; margin-top: 5px;">
-                            <li style="margin-bottom: 5px;">Implementation of mandatory Group Policies (GPOs).</li>
-                            <li style="margin-bottom: 5px;">Use of automated scripts (Cron, Wake-on-LAN) on the main server.</li>
-                            <li>Turn off all computers and monitors outside school hours to eliminate standby consumption.</li>
+                            <li style="margin-bottom: 5px;">Implementación de Directivas de Grupo (GPOs) obligatorias.</li>
+                            <li style="margin-bottom: 5px;">Uso de scripts automatizados (Cron, Wake-on-LAN) en el servidor principal.</li>
+                            <li>Apagado de todos los equipos y monitores fuera del horario escolar para eliminar el consumo en espera.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
-                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">🖥️ WEEE Management and Second Life (Circular Economy)</h4>
-                    <p style="margin-bottom: 12px;">Inspired by the circular economy practices of Google's servers, the procedure will be:</p>
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">🖥️ Gestión de RAEE y Segunda Vida (Economía Circular)</h4>
+                    <p style="margin-bottom: 12px;">Inspirado en las prácticas de economía circular de los servidores de Google, el procedimiento será:</p>
 
                     <ul style="list-style-type: decimal; margin-left: 25px;">
-                        <li style="margin-bottom: 8px;"><strong>Prior repair:</strong> Before discarding equipment to the Internal Recycling Point, attempts will be made to repair or upgrade the hardware.</li>
-                        <li><strong>Upgrade:</strong> Add SSD disks or install lightweight Linux distributions to extend their lifespan.</li>
+                        <li style="margin-bottom: 8px;"><strong>Reparación previa:</strong> Antes de desechar equipos al Punto de Reciclaje Interno, se intentará reparar o actualizar el hardware.</li>
+                        <li><strong>Actualización:</strong> Añadir discos SSD o instalar distribuciones Linux ligeras para extender su vida útil.</li>
                     </ul>
                 </div>
 
                 <div class="accordion-item" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent-green);">
-                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">💧 Water, Paper & 🗑️ Maintenance</h4>
+                    <h4 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--dark-text);">💧 Agua, Papel y 🗑️ Mantenimiento</h4>
 
                     <ul style="list-style-type: disc; margin-left: 25px;">
-                        <li style="margin-bottom: 8px;"><strong>Consumables:</strong> Replacement of single-use containers with bulk systems and digitization of procedures.</li>
-                        <li><strong>Critical materials:</strong> For obsolete equipment, exclusive transport through an Authorized Waste Manager to avoid the loss of materials such as lithium or coltan.</li>
+                        <li style="margin-bottom: 8px;"><strong>Consumibles:</strong> Sustitución de contenedores de un solo uso por sistemas a granel y digitalización de procedimientos.</li>
+                        <li><strong>Materiales críticos:</strong> Para equipos obsoletos, transporte exclusivo a través de un Gestor de Residuos Autorizado para evitar la pérdida de materiales como litio o coltán.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="timeline" style="background: var(--white); padding: 20px; border: 1px solid var(--light-green); border-radius: 8px;">
-                <h3 style="margin-bottom: 20px; border-bottom: none;">🗓️ 3-Year Roadmap</h3>
+                <h3 style="margin-bottom: 20px; border-bottom: none;">🗓️ Hoja de ruta a 3 años</h3>
                 <ul style="list-style-type: none; padding-left: 0;">
                     <li style="margin-bottom: 20px; padding-left: 25px; border-left: 4px solid var(--primary-green); position: relative;">
-                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 1 (Short-term):</strong>
-                        <p style="margin: 5px 0;">Creation of the Internal WEEE Recycling Point and partial digitization.</p>
-                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Goal: 10% Reduction</em>
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Any 1 (2025-2026):</strong>
+                        <p style="margin: 5px 0;">Creación del Punto de Reciclaje Interno de RAEE y digitalización parcial.</p>
+                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Objetivo: 10% de reducción</em>
                     </li>
                     <li style="margin-bottom: 20px; padding-left: 25px; border-left: 4px solid var(--accent-green); position: relative;">
-                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 2 (Medium-term):</strong>
-                        <p style="margin: 5px 0;">Implementation and testing of Cron and GPO scripts on the main server to power off classrooms.</p>
-                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Goal: 20% Reduction</em>
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Any 2 (2026-2027):</strong>
+                        <p style="margin: 5px 0;">Implementación y pruebas de scripts Cron y GPO en el servidor principal para apagar las aulas.</p>
+                        <em style="color: #555; background: #f1f1f1; padding: 2px 8px; border-radius: 4px;">Objetivo: 20% de reducción</em>
                     </li>
                     <li style="padding-left: 25px; border-left: 4px solid #c8e6c9; position: relative;">
-                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Year 3 (Long-term):</strong>
-                        <p style="margin: 5px 0;">Fully integrated "Green IT" culture, massive PC repair with Linux/SSDs.</p>
-                        <em style="color: #555; background: #e8f5e9; padding: 2px 8px; border-radius: 4px; color: var(--primary-green); font-weight: bold;">Goal achieved: 30% Reduction</em>
+                        <strong style="color: var(--primary-green); font-size: 1.1rem;">Any 3 (2027-2028):</strong>
+                        <p style="margin: 5px 0;">Cultura "Green IT" totalmente integrada, reparación masiva de PCs con Linux/SSDs.</p>
+                        <em style="color: #555; background: #e8f5e9; padding: 2px 8px; border-radius: 4px; color: var(--primary-green); font-weight: bold;">Objetivo logrado: 30% de reducción</em>
                     </li>
                 </ul>
             </div>
 
             <div style="background: var(--light-green); padding: 15px; border-radius: 8px; text-align: center; margin-top: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <p style="font-weight: bold; color: var(--dark-text); margin: 0; font-size: 1.1rem;">
-                    ✅ The impact of these improvements can now be quantified in the calculator above (green box "-30%").
+                    ✅ El impacto de estas mejoras puede cuantificarse en la calculadora superior (caja verde "-30%").
                 </p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Developed for Phase 3 of the Sustainable ITB Project (IT Department).</p>
+        <p>Desarrollado para la Fase 3 del Proyecto ITB Sostenible (Departamento de IT).</p>
     </footer>
 
     <script src="js/app.js"></script>
