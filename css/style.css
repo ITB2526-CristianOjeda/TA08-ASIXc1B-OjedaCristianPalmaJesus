@@ -1,12 +1,61 @@
+/* =========================================
+   VARIABLES GLOBALS (TEMA CLAR)
+   ========================================= */
 :root {
-    --primary-green: #2e7d32;
-    --light-green: #e8f5e9;
-    --accent-green: #81c784;
-    --dark-text: #1b5e20;
-    --white: #ffffff;
-    --shadow: 0 8px 16px rgba(46, 125, 50, 0.1);
+    /* Paleta de colors moderna i suau */
+    --primary-green: #059669; /* Maragda modern */
+    --primary-dark: #047857;
+    --light-green: #ecfdf5;
+    --accent-green: #34d399;
+
+    /* Textos i fons */
+    --dark-text: #0f172a;
+    --text-muted: #64748b;
+    --bg-color: #f8fafc;
+    --surface-color: #ffffff;
+    --surface-hover: #f1f5f9;
+
+    /* Vores i ombres modernes (Soft UI) */
+    --border-color: #e2e8f0;
+    --border-highlight: #a7f3d0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    --shadow-glow: 0 0 20px rgba(5, 150, 105, 0.15);
+
+    /* Ràdios (arrodoniment) */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
 }
 
+/* =========================================
+   VARIABLES ECO-MODE (TEMA FOSC PROFESIONAL)
+   ========================================= */
+body.eco-mode {
+    --primary-green: #10b981;
+    --primary-dark: #34d399;
+    --light-green: #064e3b;
+    --accent-green: #059669;
+
+    --dark-text: #f8fafc;
+    --text-muted: #94a3b8;
+    --bg-color: #0f172a; /* Blau pissarra molt fosc */
+    --surface-color: #1e293b;
+    --surface-hover: #334155;
+
+    --border-color: #334155;
+    --border-highlight: #047857;
+
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+/* =========================================
+   RESET I BASE
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -15,160 +64,583 @@
 }
 
 body {
-    background-color: #f4f9f4;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--dark-text);
     line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1140px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header Hero */
+/* =========================================
+   HERO (CAPÇALERA)
+   ========================================= */
 .hero {
-    background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
-    color: var(--white);
-    padding: 60px 0;
-    text-align: center;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    box-shadow: var(--shadow);
-    margin-bottom: -30px;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+    color: #ffffff;
+    padding: 50px 0 70px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: -40px;
+    position: relative;
+    z-index: 1;
 }
 
-.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
 
-/* Cards & Layout */
+.hero h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+}
+
+.hero p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+}
+
+/* Botó Eco-Mode */
+.eco-btn {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.eco-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+body.eco-mode .eco-btn {
+    background: #fef08a;
+    color: #854d0e;
+    border-color: #fde047;
+}
+
+body.eco-mode .eco-btn:hover {
+    background: #fde047;
+}
+
+/* =========================================
+   TARGETES (CARDS)
+   ========================================= */
 main {
     position: relative;
     z-index: 10;
 }
 
 .card {
-    background: var(--white);
-    border-radius: 15px;
-    padding: 30px;
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    padding: 40px;
     margin-bottom: 30px;
-    box-shadow: var(--shadow);
-    border-left: 5px solid var(--primary-green);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
 }
 
-h2 {
+.section-header {
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
     color: var(--primary-green);
-    margin-bottom: 20px;
-    border-bottom: 2px dashed var(--light-green);
-    padding-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Grid for Stats */
+.section-header .subtitle,
+.section-header p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+/* =========================================
+   ESTADÍSTIQUES (GRID DE CAIXES)
+   ========================================= */
 .grid-4 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
 
 .stat-box {
-    background: var(--light-green);
-    padding: 20px;
-    border-radius: 10px;
+    background: var(--surface-color);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--border-color);
+    transition: background 0.3s;
 }
 
 .stat-box:hover {
-    transform: translateY(-5px);
-    background: var(--accent-green);
-    color: var(--white);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+    border-color: var(--border-highlight);
+}
+
+.stat-box:hover::before {
+    background: var(--primary-green);
+}
+
+.stat-box h3 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .stat-box .number {
-    font-size: 1.8rem;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 700;
     color: var(--primary-green);
+    line-height: 1.1;
+    margin-bottom: 8px;
 }
 
-.stat-box:hover .number, .stat-box:hover h3 { color: var(--white); }
+.unit {
+    font-size: 0.9rem !important;
+    color: var(--text-muted);
+    display: block;
+    font-weight: 500;
+    margin-top: 4px;
+}
 
-/* Buttons */
+.stat-box small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+.box-highlight {
+    border: 2px dashed var(--accent-green);
+}
+
+/* =========================================
+   PANEL CALCULADORA (MODERN)
+   ========================================= */
+.calculator-panel {
+    background: var(--light-green);
+    padding: 25px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-highlight);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.calculator-panel label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 12px;
+    color: var(--primary-dark);
+}
+
+.select-wrapper {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.select-estilitzat {
+    appearance: none;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--primary-green);
+    background-color: var(--surface-color);
+    color: var(--dark-text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+}
+
+.select-estilitzat:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.2);
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    color: var(--primary-green);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Botons */
 .buttons-group {
     display: flex;
     gap: 15px;
-    margin-bottom: 20px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 .btn {
-    padding: 12px 24px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 1.05rem;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: var(--shadow-sm);
 }
 
-.btn.primary { background: var(--primary-green); color: var(--white); }
-.btn.primary:hover { background: #1b5e20; transform: scale(1.05); }
+.btn.primary {
+    background: var(--primary-green);
+    color: #ffffff;
+}
 
-.btn.secondary { background: var(--accent-green); color: var(--dark-text); }
-.btn.secondary:hover { background: #66bb6a; color: white; transform: scale(1.05); }
+.btn.primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
 
-/* Results */
+.btn.secondary {
+    background: var(--surface-hover);
+    color: var(--dark-text);
+    border: 1px solid var(--border-color);
+}
+
+.btn.secondary:hover {
+    background: var(--border-color);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* =========================================
+   RESULTATS (GRID DINÀMIC)
+   ========================================= */
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
     margin-top: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.results-grid h3 {
+    width: 100%;
+    grid-column: 1 / -1;
+    color: var(--primary-green);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
 }
 
 .result-item {
-    padding: 15px;
-    border: 1px solid var(--accent-green);
-    border-radius: 8px;
-    background: #fafafa;
+    background: var(--surface-color);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s;
 }
-.result-item.reduced { background: #e8f5e9; border-color: var(--primary-green); }
 
-.hidden { display: none; }
+.result-item:hover {
+    transform: scale(1.02);
+    border-color: var(--primary-green);
+}
 
-/* Timeline & Accordion */
+.result-item h4 {
+    color: var(--dark-text);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.result-item p strong {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.result-item .result-highlight {
+    margin-top: auto;
+    padding: 15px;
+    background: var(--light-green);
+    border: 1px solid var(--border-highlight);
+    border-radius: var(--radius-sm);
+}
+
+.result-item .result-highlight strong {
+    color: var(--primary-green);
+    font-size: 1.4rem;
+}
+
+.hidden { display: none !important; }
+
+/* =========================================
+   PLA D'ACCIÓ (INFO, ACORDIÓ I TIMELINE)
+   ========================================= */
+.info-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 25px;
+    background: var(--light-green);
+    border-radius: var(--radius-md);
+    margin-bottom: 35px;
+    border: 1px solid var(--border-highlight);
+}
+
+@media (max-width: 768px) {
+    .info-box { grid-template-columns: 1fr; }
+}
+
+.info-block h3 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.subsection-title {
+    color: var(--primary-green);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    font-size: 1.5rem;
+}
+
+/* Acordió / Llista d'Accions */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
 .accordion-item {
-    margin-bottom: 15px;
-    padding: 15px;
-    background: #f9f9f9;
-    border-left: 4px solid var(--accent-green);
+    background: var(--surface-hover);
+    padding: 25px;
+    border-radius: var(--radius-md);
+    border-left: 6px solid var(--primary-green);
+    box-shadow: var(--shadow-sm);
 }
+
+.accordion-item h4 {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: var(--dark-text);
+}
+
+.accordion-content {
+    margin-bottom: 15px;
+}
+
+.accordion-item ul, .accordion-item ol {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: var(--text-muted);
+}
+
+.accordion-item li {
+    margin-bottom: 8px;
+}
+
+/* Badges (Etiquetes) */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.badge-danger { background: #fee2e2; color: #991b1b; }
+.badge-success { background: #d1fae5; color: #065f46; }
+
+body.eco-mode .badge-danger { background: #7f1d1d; color: #fecaca; }
+body.eco-mode .badge-success { background: #064e3b; color: #a7f3d0; }
+
+/* Timeline (Hoja de Ruta) */
+.timeline {
+    background: var(--surface-color);
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 30px;
+}
+
+.timeline h3 {
+    margin-bottom: 25px;
+    color: var(--dark-text);
+}
+
 .timeline ul {
-    list-style-type: none;
-    padding-left: 20px;
-    border-left: 3px solid var(--primary-green);
+    list-style: none;
+    border-left: 3px solid var(--border-color);
+    margin-left: 10px;
 }
-.timeline li {
-    margin-bottom: 15px;
+
+.timeline-step {
     position: relative;
-    padding-left: 15px;
+    padding-left: 30px;
+    margin-bottom: 30px;
 }
-.timeline li::before {
+
+.timeline-step:last-child { margin-bottom: 0; }
+
+.timeline-step::before {
     content: '';
     position: absolute;
-    left: -25px;
+    left: -11px;
     top: 5px;
-    width: 12px;
-    height: 12px;
-    background: var(--primary-green);
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
+    background: var(--surface-color);
+    border: 3px solid var(--primary-green);
+    box-shadow: 0 0 0 4px var(--surface-color);
 }
 
-/* Animations */
+.timeline-step strong {
+    color: var(--primary-green);
+    font-size: 1.15rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.timeline-step p {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.timeline-step em {
+    display: inline-block;
+    background: var(--surface-hover);
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.goal-achieved {
+    background: var(--light-green) !important;
+    color: var(--primary-green) !important;
+    font-weight: 700 !important;
+    border: 1px solid var(--border-highlight);
+}
+
+/* Banner Èxit */
+.success-banner {
+    background: var(--light-green);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border: 1px dashed var(--primary-green);
+}
+
+.success-banner p {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+}
+
+/* =========================================
+   BOTONS DE DESGLOSSAMENT (DETALLS)
+   ========================================= */
+.desglossament {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.desglossament summary {
+    cursor: pointer;
+    background-color: var(--surface-hover);
+    color: var(--dark-text);
+    border: 1px solid var(--border-color);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    list-style: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.desglossament summary:hover {
+    background-color: var(--primary-green);
+    color: white;
+    border-color: var(--primary-green);
+}
+
+.desglossament summary::-webkit-details-marker { display: none; }
+
+.desglossament ul {
+    margin-top: 12px;
+    padding: 12px 15px 12px 30px;
+    background: var(--surface-hover);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--primary-green);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.desglossament li { margin-bottom: 5px; }
+
+/* =========================================
+   ANIMACIONS I FOOTER
+   ========================================= */
 .fade-in {
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }
-.delay-1 { animation-delay: 0.3s; }
-.delay-2 { animation-delay: 0.6s; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -177,152 +649,7 @@ h2 {
 
 footer {
     text-align: center;
-    padding: 20px;
-    color: var(--primary-green);
-    margin-top: 40px;
-}
-
-/* =========================================
-   🌙 ECO-MODE (DARK THEME) - CORREGIT
-   ========================================= */
-
-/* Estil del botó */
-.eco-btn {
-    background-color: #333;
-    color: #fff;
-    border: 2px solid transparent;
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.eco-btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Quan l'Eco-Mode està activat, FORCEM els colors de fons i text */
-body.eco-mode {
-    background-color: #121212 !important;
-    color: #e0e0e0 !important;
-}
-
-/* Forcem el fons fosc i text clar a totes les caixes i targetes */
-body.eco-mode .card,
-body.eco-mode .stat-box,
-body.eco-mode .info-box,
-body.eco-mode .accordion-item,
-body.eco-mode .timeline,
-body.eco-mode .result-item {
-    background-color: #1e1e1e !important;
-    color: #e0e0e0 !important;
-    border-color: #333 !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
-}
-
-/* Assegurem que tots els textos, títols i llistes siguin clars */
-body.eco-mode h1,
-body.eco-mode h2,
-body.eco-mode h4,
-body.eco-mode p,
-body.eco-mode li,
-body.eco-mode strong,
-body.eco-mode small {
-    color: #e0e0e0 !important;
-}
-
-/* Donem un verd més brillant als subtítols perquè destaquin sobre fons negre */
-body.eco-mode h3 {
-    color: #81c784 !important;
-}
-
-/* Ajustos específics del botó en mode fosc */
-body.eco-mode .eco-btn {
-    background-color: #fdd835 !important;
-    color: #121212 !important;
-}
-
-/* Correcció per a les etiquetes de colors del Pla d'Acció que havien quedat blanques */
-body.eco-mode span {
-    background-color: #333 !important;
-    color: #81c784 !important;
-    border: 1px solid #555;
-}
-
-body.eco-mode div[style*="background: #e8f5e9"],
-body.eco-mode div[style*="background: var(--light-green)"] {
-    background-color: #2a3b2c !important; /* Verd molt fosc */
-}
-
-/* Ajuste específico para que las unidades quepan bien en los cuadros */
-.unit {
-    font-size: 1.0rem !important; /* Lletra més petita */
-    display: block;               /* Força que salti a la línia de sota */
-    line-height: 1.2;
-    margin-top: 5px;              /* Una mica d'espai amb el número 40 */
-}
-
-/* =========================================
-   BOTONS DE DESGLOSSAMENT (ITB LEAKS)
-   ========================================= */
-.desglossament {
-    margin-top: 12px;
-    font-size: 0.85rem;
-    text-align: left;
-}
-
-/* Forma de Botó */
-.desglossament summary {
-    cursor: pointer;
-    background-color: var(--light-green);
-    color: var(--dark-text);
-    border: 1px solid var(--primary-green);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    list-style: none; /* Amaga la fletxeta */
-    display: inline-block; /* Fa que tingui mida de botó i no ocupi tota la línia */
-    transition: all 0.2s ease;
-}
-
-/* Efecte en passar el ratolí */
-.desglossament summary:hover {
-    background-color: var(--primary-green);
-    color: white;
-}
-
-/* Amaga la fletxeta en navegadors antics o Safari */
-.desglossament summary::-webkit-details-marker {
-    display: none;
-}
-
-/* Caixa de la llista un cop obert */
-.desglossament ul {
-    margin-top: 10px;
-    padding: 10px 10px 10px 25px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 6px;
-    border-left: 3px solid var(--accent-green);
-    color: var(--dark-text);
-    line-height: 1.4;
-}
-
-/* Ajustos pel mode fosc (Eco-Mode) */
-body.eco-mode .desglossament summary {
-    background-color: #333 !important;
-    color: #81c784 !important;
-    border-color: #81c784 !important;
-}
-
-body.eco-mode .desglossament summary:hover {
-    background-color: #81c784 !important;
-    color: #121212 !important;
-}
-
-body.eco-mode .desglossament ul {
-    background: rgba(0, 0, 0, 0.3);
-    color: #e0e0e0;
+    padding: 30px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
