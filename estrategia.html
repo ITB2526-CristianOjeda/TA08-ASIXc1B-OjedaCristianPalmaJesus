@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia ASG | ITB Sostenible</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* =========================================
+           VARIABLES CSS
+           ========================================= */
+        :root {
+            --bg-body: #f4f7fb; --bg-surface: #ffffff; --bg-surface-hover: #f8fafc;
+            --text-primary: #0f172a; --text-secondary: #64748b; --border-color: #e2e8f0;
+            --color-elec: #f59e0b; --color-aigua: #3b82f6; --color-paper: #10b981; --color-neteja: #8b5cf6; --color-general: #0ea5e9;
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05); --radius-md: 12px; --radius-lg: 16px; --transition: all 0.3s ease;
+        }
+        [data-theme="dark"] {
+            --bg-body: #0f172a; --bg-surface: #1e293b; --bg-surface-hover: #334155;
+            --text-primary: #f8fafc; --text-secondary: #94a3b8; --border-color: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-primary); transition: var(--transition); line-height: 1.5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-area i { font-size: 2.5rem; color: var(--color-general); }
+        .logo-area h1 { font-size: 1.5rem; font-weight: 700; }
+        .logo-area p { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .nav-menu { display: flex; gap: 1rem; background: var(--bg-surface); padding: 5px; border-radius: 30px; border: 1px solid var(--border-color); }
+        .nav-link { text-decoration: none; color: var(--text-secondary); padding: 8px 20px; border-radius: 20px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-surface-hover); }
+        .nav-link.active { background: rgba(14, 165, 233, 0.1); color: var(--color-general); }
+
+        .theme-toggle { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px 16px; border-radius: 30px; cursor: pointer; font-weight: 500; transition: var(--transition); }
+        .theme-toggle:hover { background: var(--bg-surface-hover); }
+
+        .panel { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 30px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md); margin-bottom: 2rem; }
+        .panel-header { margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .panel-header h2 { font-size: 1.3rem; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
+
+        /* Grid de Línea Base */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .stat-box { background: var(--bg-body); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+        .stat-box h3 { font-size: 1rem; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--text-secondary); }
+        .stat-box .number { font-size: 1.8rem; font-weight: 700; color: var(--text-primary); }
+        .stat-box .unit { font-size: 0.9rem; font-weight: 400; color: var(--text-secondary); }
+
+        /* Catálogo de Medidas - ESTILOS DE ACORDEÓN */
+        .measures-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .measure-category { background: var(--bg-surface-hover); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+        .measure-category h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; font-size: 1.05rem; }
+
+        .measure-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+        /* Item interactivo */
+        .measure-item { background: var(--bg-surface); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; transition: var(--transition); }
+
+        /* Cabecera del item (lo que siempre se ve) */
+        .measure-header { display: flex; justify-content: space-between; align-items: center; padding: 12px; cursor: pointer; user-select: none; }
+        .measure-header:hover { background: var(--bg-body); }
+        .measure-title { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+        .chevron { color: var(--text-secondary); transition: transform 0.3s ease; }
+
+        /* Contenido oculto (se muestra al hacer click) */
+        .measure-desc { max-height: 0; padding: 0 12px; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; transition: all 0.3s ease; opacity: 0; }
+
+        /* Estado activo */
+        .measure-item.active .measure-header { border-bottom: 1px dashed var(--border-color); }
+        .measure-item.active .chevron { transform: rotate(180deg); color: var(--text-primary); }
+        .measure-item.active .measure-desc { max-height: 200px; padding: 12px; opacity: 1; }
+
+        .badge { padding: 4px 8px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; white-space: nowrap; }
+        .badge-elec { background: rgba(245, 158, 11, 0.1); color: var(--color-elec); }
+        .badge-aigua { background: rgba(59, 130, 246, 0.1); color: var(--color-aigua); }
+        .badge-paper { background: rgba(16, 185, 129, 0.1); color: var(--color-paper); }
+        .badge-neteja { background: rgba(139, 92, 246, 0.1); color: var(--color-neteja); }
+
+        /* Timeline */
+        .timeline { border-left: 3px solid var(--border-color); margin-left: 20px; padding-left: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .timeline-step { position: relative; }
+        .timeline-step::before { content: ''; position: absolute; left: -29px; top: 5px; width: 14px; height: 14px; background: var(--color-general); border-radius: 50%; box-shadow: 0 0 0 4px var(--bg-surface); }
+        .timeline-step h4 { color: var(--text-primary); font-size: 1.1rem; }
+        .timeline-step p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px; }
+        .timeline-step .target { display: inline-block; margin-top: 8px; font-size: 0.8rem; font-weight: bold; padding: 4px 10px; border-radius: 12px; background: rgba(14, 165, 233, 0.1); color: var(--color-general); }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .nav-menu { width: 100%; justify-content: center; }
+        }
+
+                /* =========================================
+           ESTILOS DE LA MASCOTA HOJA
+           ========================================= */
+        #leaf-mascot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            z-index: 9999;
+            pointer-events: none;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease;
+        }
+
+        #leaf-mascot.hidden {
+            transform: translateY(150px) scale(0.5);
+            opacity: 0;
+        }
+
+        .speech-bubble {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            border-radius: 20px 20px 0 20px;
+            box-shadow: var(--shadow-md);
+            max-width: 260px;
+            font-size: 0.85rem;
+            border: 2px solid var(--color-paper);
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .leaf-character {
+            width: 60px;
+            height: 60px;
+            background: var(--color-paper);
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .leaf-face {
+            transform: rotate(-45deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -5px;
+        }
+
+        .leaf-eyes { display: flex; gap: 8px; }
+        .leaf-eye {
+            width: 8px; height: 8px; background: #ffffff; border-radius: 50%; position: relative;
+            animation: blink 3s infinite;
+        }
+        .leaf-eye::after {
+            content: ''; position: absolute;
+            width: 4px; height: 4px; background: #0f172a; border-radius: 50%;
+            top: 2px; right: 2px;
+        }
+
+        .leaf-mouth {
+            width: 12px; height: 6px;
+            border-bottom: 2px solid #ffffff;
+            border-radius: 0 0 10px 10px;
+            margin-top: 4px;
+        }
+
+        @keyframes blink {
+            0%, 96%, 100% { transform: scaleY(1); }
+            98% { transform: scaleY(0.1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <i class="ph-fill ph-book-open-text"></i>
+            <div>
+                <h1>ITB Sostenible</h1>
+                <p>Estrategia y Contexto ASG</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link"><i class="ph ph-calculator"></i> Simulador</a>
+            <a href="estrategia.html" class="nav-link active"><i class="ph ph-map-trifold"></i> Plan de Acción</a>
+        </nav>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="ph ph-moon" id="theme-icon"></i>
+        </button>
+    </header>
+
+    <section class="panel">
+        <div class="panel-header">
+            <h2><i class="ph ph-chart-bar"></i> Línea Base: Consumo Medio Mensual (2025)</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Datos extraídos de los ITB Leaks y facturación actual. Sirven como base para el simulador.</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-box" style="border-top: 3px solid var(--color-elec);">
+                <h3><i class="ph ph-lightning" style="color:var(--color-elec)"></i> Electricidad</h3>
+                <div class="number">4.500 <span class="unit">kWh/mes</span></div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Aulas informática y servidores.</p>
+            </div>
+            <div class="stat-box" style="border-top: 3px solid var(--color-aigua);">
+                <h3><i class="ph ph-drop" style="color:var(--color-aigua)"></i> Agua</h3>
+                <div class="number">48,3 <span class="unit">m³/mes</span></div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Lavabos y limpieza general.</p>
+            </div>
+            <div class="stat-box" style="border-top: 3px solid var(--color-paper);">
+                <h3><i class="ph ph-copy" style="color:var(--color-paper)"></i> Oficina</h3>
+                <div class="number">155,5 <span class="unit">€/mes</span></div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Papel (90€), Marcadores, Borradores.</p>
+            </div>
+            <div class="stat-box" style="border-top: 3px solid var(--color-neteja);">
+                <h3><i class="ph ph-spray-bottle" style="color:var(--color-neteja)"></i> Limpieza</h3>
+                <div class="number">415,2 <span class="unit">€/mes</span></div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 5px;">Rollos papel (360€), Químicos eco (55€).</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
+            <h2><i class="ph ph-list-checks"></i> Catálogo de Medidas Sostenibles</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Haz clic en cualquier medida para ver los detalles técnicos y de implementación.</p>
+        </div>
+
+        <div class="measures-grid">
+            <div class="measure-category" style="border-top: 4px solid var(--color-elec);">
+                <h4 style="color: var(--color-elec);"><i class="ph ph-lightning"></i> Electricidad</h4>
+                <ul class="measure-list">
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Placas Solares</span>
+                            <span class="badge badge-elec">-40%</span>
+                        </div>
+                        <div class="measure-desc">Instalación de paneles fotovoltaicos en la cubierta para autoconsumo, priorizando horas lectivas para absorber el pico de gasto de los servidores y aulas.</div>
+                    </li>
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> LED + Sensores</span>
+                            <span class="badge badge-elec">-15%</span>
+                        </div>
+                        <div class="measure-desc">Sustitución de tubos fluorescentes por paneles LED. Integración de sensores de presencia en pasillos y lavabos para evitar luces encendidas sin uso.</div>
+                    </li>
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> GPOs: Apagado Auto</span>
+                            <span class="badge badge-elec">-10%</span>
+                        </div>
+                        <div class="measure-desc">Configuración de directivas (GPO) en Windows Server y scripts para forzar el apagado automático de todos los PCs de las aulas fuera del horario escolar.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="measure-category" style="border-top: 4px solid var(--color-aigua);">
+                <h4 style="color: var(--color-aigua);"><i class="ph ph-drop"></i> Agua</h4>
+                <ul class="measure-list">
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Sensores en grifos</span>
+                            <span class="badge badge-aigua">-15%</span>
+                        </div>
+                        <div class="measure-desc">Instalación de temporizadores infrarrojos en los lavabos para asegurar que el agua solo fluya cuando se detectan las manos, evitando grifos mal cerrados.</div>
+                    </li>
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Optimización cisternas</span>
+                            <span class="badge badge-aigua">-15%</span>
+                        </div>
+                        <div class="measure-desc">Mecanismos de doble descarga en inodoros y reductores de caudal (perlizadores) en grifos para minimizar los litros desperdiciados por uso.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="measure-category" style="border-top: 4px solid var(--color-paper);">
+                <h4 style="color: var(--color-paper);"><i class="ph ph-copy"></i> Oficina</h4>
+                <ul class="measure-list">
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Cultura "Zero Paper"</span>
+                            <span class="badge badge-paper">-20%</span>
+                        </div>
+                        <div class="measure-desc">Campaña para alumnos y profesores: evitar impresiones de apuntes y priorizar entregas 100% digitales a través del Campus Virtual (Moodle/Classroom).</div>
+                    </li>
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Digitalización Trámites</span>
+                            <span class="badge badge-paper">-10%</span>
+                        </div>
+                        <div class="measure-desc">Sustitución de matriculaciones, autorizaciones y partes de incidencias físicos por formularios web y firmas digitales automatizadas.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="measure-category" style="border-top: 4px solid var(--color-neteja);">
+                <h4 style="color: var(--color-neteja);"><i class="ph ph-spray-bottle"></i> Limpieza</h4>
+                <ul class="measure-list">
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Optimización servicios</span>
+                            <span class="badge badge-neteja">-20%</span>
+                        </div>
+                        <div class="measure-desc">Reestructuración de rondas usando fregadoras eficientes y eliminación de toallas de papel desechables en favor de secadores de aire de bajo consumo.</div>
+                    </li>
+                    <li class="measure-item" onclick="toggleMeasure(this)">
+                        <div class="measure-header">
+                            <span class="measure-title"><i class="ph ph-caret-down chevron"></i> Químicos eco-concent.</span>
+                            <span class="badge badge-neteja">-10%</span>
+                        </div>
+                        <div class="measure-desc">Transición a limpiadores biodegradables súper-concentrados. Reducen plásticos, huella de carbono en transporte y vertidos tóxicos.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
+            <h2><i class="ph ph-flag"></i> Hoja de Ruta ASG a 3 Años</h2>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-step">
+                <h4>Año 1 (2025-2026)</h4>
+                <p>Auditoría inicial. Creación del Punto de Reciclaje Interno de RAEE y digitalización parcial de procesos burocráticos y administrativos.</p>
+                <span class="target">Meta progresiva: 33% del objetivo final</span>
+            </div>
+            <div class="timeline-step">
+                <h4>Año 2 (2026-2027)</h4>
+                <p>Despliegue de hardware eficiente. Implementación de scripts y GPOs en el servidor principal para el apagado automático de todas las aulas.</p>
+                <span class="target">Meta progresiva: 66% del objetivo final</span>
+            </div>
+            <div class="timeline-step">
+                <h4>Año 3 (2027-2028)</h4>
+                <p>Cultura "Green IT" totalmente integrada. Optimización completa de suministros (placas solares, sensores de agua, químicos eco).</p>
+                <span class="target" style="background: var(--color-general); color: white;">Consolidación del Objetivo ASG de Reducción</span>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+<script>
+    // 1. Esto DEBE estar fuera de la función para que funcione el "solo una vez por sesión"
+    let mascotShown = false;
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const icon = document.getElementById('theme-icon');
+        const isGoingDark = html.getAttribute('data-theme') === 'light';
+
+        if (isGoingDark) {
+            html.setAttribute('data-theme', 'dark');
+            icon.className = 'ph ph-sun';
+
+            // 2. Lógica de la mascota
+            if (!mascotShown) {
+                const mascot = document.getElementById('leaf-mascot');
+                if (mascot) {
+                    mascot.classList.remove('hidden');
+                    mascotShown = true;
+                    setTimeout(() => {
+                        mascot.classList.add('hidden');
+                    }, 15000); // 15 segundos
+                }
+            }
+        } else {
+            html.setAttribute('data-theme', 'light');
+            icon.className = 'ph ph-moon';
+        }
+    }
+
+    // Tu otra función de los acordeones...
+    function toggleMeasure(element) {
+        element.classList.toggle('active');
+    }
+</script>
+</script>
+
+<div id="leaf-mascot" class="hidden">
+    <div class="speech-bubble">
+        <strong>¡Hola!</strong> 🌿 ¿Sabías que el Modo Oscuro es eco-friendly?<br><br>
+        En pantallas OLED/AMOLED apaga los píxeles negros por completo ahorrando batería y evita que la pantalla se "queme".
+    </div>
+    <div class="leaf-character">
+        <div class="leaf-face">
+            <div class="leaf-eyes"><span class="leaf-eye"></span><span class="leaf-eye"></span></div>
+            <div class="leaf-mouth"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
