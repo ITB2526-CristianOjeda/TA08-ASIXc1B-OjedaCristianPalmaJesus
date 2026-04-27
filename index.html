@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora ASG | ITB Sostenible</title>
+    <title>ESG Calculator | Sustainable ITB</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -30,43 +30,43 @@
         <div class="logo-area">
             <i class="ph-fill ph-leaf"></i>
             <div>
-                <h1>ITB Sostenible</h1>
-                <p>Calculadora y Simulador Green IT</p>
+                <h1>Sustainable ITB</h1>
+                <p>Green IT Calculator and Simulator</p>
             </div>
         </div>
 
         <nav class="nav-menu">
-            <a href="index.html" class="nav-link active"><i class="ph ph-calculator"></i> Simulador</a>
-            <a href="estrategia.html" class="nav-link"><i class="ph ph-map-trifold"></i> Plan de Acción</a>
+            <a href="index.html" class="nav-link active"><i class="ph ph-calculator"></i> Simulator</a>
+            <a href="estrategia.html" class="nav-link"><i class="ph ph-map-trifold"></i> Action Plan</a>
         </nav>
 
         <button class="theme-toggle" onclick="toggleTheme()">
-            <i class="ph ph-moon" id="theme-icon"></i> <span id="theme-text">Modo Oscuro</span>
+            <i class="ph ph-moon" id="theme-icon"></i> <span id="theme-text">Dark Mode</span>
         </button>
     </header>
 
     <nav class="tabs" id="category-tabs">
-        <button class="tab-btn active" data-cat="all"><i class="ph ph-squares-four"></i> Visión General</button>
-        <button class="tab-btn" data-cat="elec"><i class="ph ph-lightning"></i> Electricidad</button>
-        <button class="tab-btn" data-cat="aigua"><i class="ph ph-drop"></i> Agua</button>
-        <button class="tab-btn" data-cat="paper"><i class="ph ph-copy"></i> Oficina</button>
-        <button class="tab-btn" data-cat="neteja"><i class="ph ph-spray-bottle"></i> Limpieza</button>
+        <button class="tab-btn active" data-cat="all"><i class="ph ph-squares-four"></i> Overview</button>
+        <button class="tab-btn" data-cat="elec"><i class="ph ph-lightning"></i> Electricity</button>
+        <button class="tab-btn" data-cat="aigua"><i class="ph ph-drop"></i> Water</button>
+        <button class="tab-btn" data-cat="paper"><i class="ph ph-copy"></i> Office</button>
+        <button class="tab-btn" data-cat="neteja"><i class="ph ph-spray-bottle"></i> Cleaning</button>
     </nav>
 
     <div class="dashboard-grid">
         <aside class="panel">
             <div class="panel-title">
-                <i class="ph ph-sliders"></i> Acciones Sostenibles
+                <i class="ph ph-sliders"></i> Sustainable Actions
             </div>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                Activa o desactiva medidas para simular el impacto.
+                Enable or disable measures to simulate the impact.
             </p>
             <div class="actions-list" id="actions-container"></div>
         </aside>
 
         <section class="panel">
             <div class="panel-title" style="justify-content: space-between;">
-                <span><i class="ph ph-chart-line-up"></i> Proyección de Impacto</span>
+                <span><i class="ph ph-chart-line-up"></i> Impact Projection</span>
                 <span id="chart-unit-badge" style="font-size: 0.8rem; background: var(--bg-body); padding: 4px 12px; border-radius: 20px; color: var(--text-secondary);"></span>
             </div>
             <div class="chart-container">
@@ -77,16 +77,16 @@
 
     <section class="panel table-container">
         <div class="panel-title">
-            <i class="ph ph-calculator"></i> Calculadora Evolutiva de Reducción
+            <i class="ph ph-calculator"></i> Evolutionary Reduction Calculator
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Escenario / Horizonte</th>
-                    <th>Consumo Base (Sin mejoras)</th>
-                    <th>Consumo Proyectado (Con mejoras)</th>
-                    <th>Ahorro Anual</th>
-                    <th>% Reducción Alcanzado</th>
+                    <th>Scenario / Horizon</th>
+                    <th>Base Consumption (No improvements)</th>
+                    <th>Projected Consumption (With improvements)</th>
+                    <th>Annual Savings</th>
+                    <th>% Reduction Achieved</th>
                 </tr>
             </thead>
             <tbody id="calculator-body"></tbody>
@@ -101,8 +101,8 @@
 
 <div id="leaf-mascot" class="hidden">
     <div class="speech-bubble">
-        <strong>¡Hola!</strong> 🌿 ¿Sabías que el Modo Oscuro es eco-friendly?<br><br>
-        En pantallas OLED/AMOLED apaga los píxeles negros por completo. Esto <strong>ahorra batería</strong>, alarga la vida de tu dispositivo evitando que la pantalla se "queme" y, de paso, ¡descansa tu vista!
+        <strong>Hi!</strong> 🌿 Did you know Dark Mode is eco-friendly?<br><br>
+        On OLED/AMOLED screens, it completely turns off black pixels. This <strong>saves battery</strong>, extends your device's lifespan by preventing screen "burn-in", and gives your eyes a rest!
     </div>
     <div class="leaf-character">
         <div class="leaf-face">

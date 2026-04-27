@@ -2,31 +2,34 @@
    1. CONFIGURACIÓN Y DATOS BASE
    ========================================= */
 const BASE_DATA = {
-    elec:   { val: 54000, unit: 'kWh', name: 'Electricidad', color: '#f59e0b', costPerUnit: 0.16 },
-    aigua:  { val: 576,   unit: 'm³',  name: 'Agua', color: '#3b82f6', costPerUnit: 2.15 },
-    paper:  { val: 1866,  unit: '€',   name: 'Oficina', color: '#10b981', costPerUnit: 1 },
-    neteja: { val: 4982.4,unit: '€',   name: 'Limpieza', color: '#8b5cf6', costPerUnit: 1 }
+    elec:   { val: 54000, unit: 'kWh', name: 'Electricity', color: '#f59e0b', costPerUnit: 0.16 },
+    aigua:  { val: 576,   unit: 'm³',  name: 'Water', color: '#3b82f6', costPerUnit: 2.15 },
+    paper:  { val: 1866,  unit: '€',   name: 'Office', color: '#10b981', costPerUnit: 1 },
+    neteja: { val: 4982.4,unit: '€',   name: 'Cleaning', color: '#8b5cf6', costPerUnit: 1 }
 };
 
 const ACTIONS = [
-    { id: 'e1', cat: 'elec', label: 'Iluminación LED + Sensores', savings: 0.15 },
-    { id: 'e2', cat: 'elec', label: 'Instalación Placas Solares', savings: 0.40 },
-    { id: 'e3', cat: 'elec', label: 'GPOs: Apagado Automático', savings: 0.10 },
-    { id: 'a1', cat: 'aigua', label: 'Sensores en grifos', savings: 0.15 },
-    { id: 'a2', cat: 'aigua', label: 'Optimización y cisternas', savings: 0.15 },
-    { id: 'p1', cat: 'paper', label: 'Cultura "Zero Paper"', savings: 0.20 },
-    { id: 'p2', cat: 'paper', label: 'Digitalización de Trámites', savings: 0.10 },
-    { id: 'n1', cat: 'neteja', label: 'Optimización de servicios', savings: 0.20 },
-    { id: 'n2', cat: 'neteja', label: 'Uso de químicos eco-concentrados', savings: 0.10 }
+    { id: 'e1', cat: 'elec', label: 'LED Lighting + Sensors', savings: 0.15 },
+    { id: 'e2', cat: 'elec', label: 'Solar Panel Installation', savings: 0.40 },
+    { id: 'e3', cat: 'elec', label: 'GPOs: Auto Shutdown', savings: 0.10 },
+    { id: 'a1', cat: 'aigua', label: 'Faucet Sensors', savings: 0.15 },
+    { id: 'a2', cat: 'aigua', label: 'Optimization & Cisterns', savings: 0.15 },
+    { id: 'p1', cat: 'paper', label: '"Zero Paper" Culture', savings: 0.20 },
+    { id: 'p2', cat: 'paper', label: 'Digital Procedures', savings: 0.10 },
+    { id: 'n1', cat: 'neteja', label: 'Service Optimization', savings: 0.20 },
+    { id: 'n2', cat: 'neteja', label: 'Eco-concentrated Chemicals', savings: 0.10 }
 ];
 
-const YEARS_LABELS = ['Año Base (24-25)', 'Año 1 (25-26)', 'Año 2 (26-27)', 'Año 3 (27-28)'];
+const YEARS_LABELS = ['Base Year (24-25)', 'Year 1 (25-26)', 'Year 2 (26-27)', 'Year 3 (27-28)'];
 const PROGRESSION = [0, 0.333, 0.666, 1];
 
 let currentTab = 'all';
 let selectedActions = new Set(ACTIONS.map(a => a.id));
 let chartInstance = null;
 let previousValues = {};
+
+// Variable para la hoja (para que solo salga 1 vez por sesión)
+let mascotShown = false;
 
 /* =========================================
    2. ANIMACIONES
@@ -40,7 +43,7 @@ function animateValue(element, start, end, duration, decimals = 0) {
         const easeProgress = 1 - Math.pow(1 - progress, 4);
         const current = start + (end - start) * easeProgress;
 
-        element.innerHTML = new Intl.NumberFormat('es-ES', {
+        element.innerHTML = new Intl.NumberFormat('en-US', {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals
         }).format(current);
@@ -83,7 +86,7 @@ function renderActions() {
     let visibleActions = currentTab !== 'all' ? ACTIONS.filter(a => a.cat === currentTab) : ACTIONS;
 
     if(visibleActions.length === 0) {
-        container.innerHTML = `<p style="color:var(--text-secondary); font-size:0.9rem;">No hay acciones específicas para esta vista.</p>`;
+        container.innerHTML = `<p style="color:var(--text-secondary); font-size:0.9rem;">There are no specific actions for this view.</p>`;
         return;
     }
 
@@ -95,7 +98,7 @@ function renderActions() {
             <input type="checkbox" value="${action.id}" ${isChecked ? 'checked' : ''}>
             <div class="action-info">
                 <h4>${action.label}</h4>
-                <p>Impacto potencial: <span class="action-badge">-${Math.round(action.savings * 100)}%</span></p>
+                <p>Potential impact: <span class="action-badge">-${Math.round(action.savings * 100)}%</span></p>
             </div>
         `;
 
@@ -121,7 +124,7 @@ function getMaxSavingsForCategory(catKey) {
 function getProjectionData(catKey) {
     let baseData = [0, 0, 0, 0];
     let projectedData = [0, 0, 0, 0];
-    let unit = catKey === 'all' ? '€ (Coste Estimado)' : BASE_DATA[catKey].unit;
+    let unit = catKey === 'all' ? '€ (Estimated Cost)' : BASE_DATA[catKey].unit;
 
     if (catKey === 'all') {
         Object.keys(BASE_DATA).forEach(key => {
@@ -143,14 +146,14 @@ function getProjectionData(catKey) {
     return { baseData, projectedData, unit };
 }
 
-const formatNum = (num, decimals = 0) => new Intl.NumberFormat('es-ES', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(num);
+const formatNum = (num, decimals = 0) => new Intl.NumberFormat('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(num);
 
 /* =========================================
    3. ACTUALIZACIÓN DEL DASHBOARD
    ========================================= */
 function updateDashboard() {
     const { baseData, projectedData, unit } = getProjectionData(currentTab);
-    document.getElementById('chart-unit-badge').innerText = `Métrica actual: ${unit}`;
+    document.getElementById('chart-unit-badge').innerText = `Current metric: ${unit}`;
 
     // Gráfica
     const ctx = document.getElementById('impactChart').getContext('2d');
@@ -162,8 +165,8 @@ function updateDashboard() {
         data: {
             labels: YEARS_LABELS,
             datasets: [
-                { label: '🔴 Sin Sostenibilidad (Baseline)', data: baseData, borderColor: '#ef4444', borderDash: [5, 5], borderWidth: 2, pointRadius: 4, fill: false, tension: 0.1 },
-                { label: '🟢 Con Mejoras Aplicadas', data: projectedData, borderColor: color, backgroundColor: color + '20', borderWidth: 4, pointRadius: 6, pointBackgroundColor: '#fff', fill: true, tension: 0.4 }
+                { label: '🔴 No Sustainability (Baseline)', data: baseData, borderColor: '#ef4444', borderDash: [5, 5], borderWidth: 2, pointRadius: 4, fill: false, tension: 0.1 },
+                { label: '🟢 With Improvements Applied', data: projectedData, borderColor: color, backgroundColor: color + '20', borderWidth: 4, pointRadius: 6, pointBackgroundColor: '#fff', fill: true, tension: 0.4 }
             ]
         },
         options: {
@@ -191,10 +194,12 @@ function updateDashboard() {
 }
 
 /* =========================================
-   4. TARJETAS DE RESUMEN EXACTAS A LA IMAGEN
+   4. TARJETAS DE RESUMEN
    ========================================= */
 function updateSummaryCards() {
     const container = document.getElementById('summary-cards');
+    if (!container) return;
+
     const isFirstRender = container.innerHTML === '';
     const keys = ['elec', 'aigua', 'paper', 'neteja'];
     const icons = ['lightning', 'drop', 'copy', 'spray-bottle'];
@@ -210,19 +215,19 @@ function updateSummaryCards() {
                     <div class="sc-data">
                         <div class="sc-big-value" style="margin-bottom: 1.5rem;">
                             <span id="val-actual-${key}">0</span>
-                            <span style="font-size:0.9rem; color:var(--text-secondary); font-weight: 500;">${BASE_DATA[key].unit}/año</span>
+                            <span style="font-size:0.9rem; color:var(--text-secondary); font-weight: 500;">${BASE_DATA[key].unit}/yr</span>
                         </div>
 
                         <div class="sc-row">
-                            <span style="color: var(--text-secondary);">Proyección Año 3:</span>
+                            <span style="color: var(--text-secondary);">Projection Year 3:</span>
                             <span class="sc-value"><span id="val-proj-${key}">0</span> ${BASE_DATA[key].unit}</span>
                         </div>
                         <div class="sc-row">
-                            <span style="color: var(--text-secondary);">Ahorro Anual (Año 3):</span>
+                            <span style="color: var(--text-secondary);">Annual Savings (Year 3):</span>
                             <span class="sc-value sc-green">-<span id="val-ahorro-anual-${key}">0</span> ${BASE_DATA[key].unit}</span>
                         </div>
                         <div class="sc-row" style="padding-top: 8px;">
-                            <strong style="color: var(--text-primary);">Ahorro Total Acumulado<br>(3 años):</strong>
+                            <strong style="color: var(--text-primary);">Accumulated Total Savings<br>(3 years):</strong>
                             <strong class="sc-value sc-green" style="font-size: 1.1rem;">-<span id="val-saved-${key}">0</span> ${BASE_DATA[key].unit}</strong>
                         </div>
                     </div>
@@ -256,36 +261,22 @@ function updateSummaryCards() {
     });
 }
 
-/* =========================================
-   MODO OSCURO Y MASCOTA HOJA (Actualizado para F5)
-   ========================================= */
-// Esta variable se borra cada vez que recargas la página
-let mascotShown = false;
-
 function toggleTheme() {
     const html = document.documentElement;
     const icon = document.getElementById('theme-icon');
-    const text = document.getElementById('theme-text'); // Solo existe en la calculadora
+    const text = document.getElementById('theme-text');
 
-    // Comprobamos si estamos pasando a modo oscuro
-    const isGoingDark = html.getAttribute('data-theme') === 'light';
-
-    if (isGoingDark) {
+    if (html.getAttribute('data-theme') === 'light') {
         html.setAttribute('data-theme', 'dark');
         icon.className = 'ph ph-sun';
-        if(text) text.innerText = 'Modo Claro';
+        if(text) text.innerText = 'Light Mode';
 
         // LÓGICA DE LA MASCOTA HOJA
         if (!mascotShown) {
             const mascot = document.getElementById('leaf-mascot');
             if (mascot) {
-                // Aparece con la animación saltarina
                 mascot.classList.remove('hidden');
-
-                // Guardamos en la variable temporal que ya la hemos visto
                 mascotShown = true;
-
-                // Desaparece sola a los 8 segundos
                 setTimeout(() => {
                     mascot.classList.add('hidden');
                 }, 15000);
@@ -294,15 +285,13 @@ function toggleTheme() {
     } else {
         html.setAttribute('data-theme', 'light');
         icon.className = 'ph ph-moon';
-        if(text) text.innerText = 'Modo Oscuro';
+        if(text) text.innerText = 'Dark Mode';
     }
 
-    // Actualizar los colores de la gráfica si estamos en la Calculadora
-    if (typeof chartInstance !== 'undefined' && chartInstance) {
+    if (chartInstance) {
         const isDark = html.getAttribute('data-theme') === 'dark';
         const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
         const textColor = isDark ? '#94a3b8' : '#64748b';
-
         chartInstance.options.scales.x.ticks.color = textColor;
         chartInstance.options.scales.y.ticks.color = textColor;
         chartInstance.options.scales.y.grid.color = gridColor;
@@ -310,5 +299,4 @@ function toggleTheme() {
         chartInstance.update();
     }
 }
-// Hacer la función global por si acaso
 window.toggleTheme = toggleTheme;
