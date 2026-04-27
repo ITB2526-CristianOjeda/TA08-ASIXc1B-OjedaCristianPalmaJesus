@@ -238,7 +238,7 @@ tr:last-child td { border-bottom: none; }
     }
 
     .panel-header {
-        flex-direction: column; /* El título y los botones uno sobre otro */
+        flex-direction: column; /* Ell título y los botones uno sobre otro */
         align-items: flex-start;
     }
 }
