@@ -225,6 +225,54 @@
 
     <section class="panel">
         <div class="panel-header">
+            <h2><i class="ph ph-target"></i> Strategic Goals & Key Indicators</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Context and methodology for achieving a 30% reduction in 3 years.</p>
+        </div>
+
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-box" style="border-left: 4px solid var(--color-general); border-top: 1px solid var(--border-color);">
+                <h3 style="color: var(--color-general);"><i class="ph ph-crosshair"></i> Measurable Objectives</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;">Reduce idle electrical consumption in classrooms, extend hardware lifespan through circular economy, and reduce office materials by 30% compared to 2025.</p>
+            </div>
+            <div class="stat-box" style="border-left: 4px solid var(--color-general); border-top: 1px solid var(--border-color);">
+                <h3 style="color: var(--color-general);"><i class="ph ph-chart-pie-slice"></i> Key Indicators</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px; line-height: 1.5;">Monthly kWh billed for servers/classrooms, kg of WEEE (e-waste) managed internally, and total reams of paper consumed.</p>
+            </div>
+        </div>
+
+        <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Implementation Context & Circular Economy</h3>
+
+        <div class="measures-grid" style="grid-template-columns: 1fr; gap: 1rem;">
+            <div class="measure-category" style="border-left: 4px solid var(--color-elec); background: var(--bg-body);">
+                <h4 style="color: var(--text-primary);"><i class="ph ph-wrench" style="color: var(--color-elec);"></i> Energy Efficiency: Total Classroom Automation</h4>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                    <p style="margin-bottom: 10px;"><strong style="color: #ef4444; background: rgba(239, 68, 68, 0.1); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem;">Current Flaw</strong> Relying on users to turn off equipment is highly inefficient.</p>
+                    <p><strong style="color: var(--color-paper); background: rgba(16, 185, 129, 0.1); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem;">Tech Proposal</strong> Implementation of mandatory Group Policies (GPOs) and automated scripts (Cron, Wake-on-LAN) on the main server to forcefully shut down all equipment and monitors outside school hours.</p>
+                </div>
+            </div>
+
+            <div class="measure-category" style="border-left: 4px solid var(--color-paper); background: var(--bg-body);">
+                <h4 style="color: var(--text-primary);"><i class="ph ph-recycle" style="color: var(--color-paper);"></i> WEEE Management & Second Life</h4>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                    <p style="margin-bottom: 10px;">Inspired by Google's circular economy practices, the hardware lifecycle procedure will be:</p>
+                    <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                        <li><strong>Prior Repair:</strong> Before discarding equipment to the Internal Recycling Point, hardware will be repaired or upgraded.</li>
+                        <li><strong>Upcycling:</strong> Adding SSDs or installing lightweight Linux distributions to extend useful life.</li>
+                        <li><strong>Critical Materials:</strong> Exclusive transport via an Authorized Waste Manager for obsolete equipment to prevent the loss of lithium and cobalt.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 2rem; border: 1px solid rgba(16, 185, 129, 0.2);">
+            <p style="font-weight: 600; color: var(--color-paper); margin: 0; font-size: 0.95rem;">
+                <i class="ph ph-check-circle"></i> The financial and environmental impact of these improvements can be quantified in the Simulator dashboard.
+            </p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
             <h2><i class="ph ph-list-checks"></i> Sustainable Measures Catalog</h2>
             <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Click on any measure to view technical and implementation details.</p>
         </div>
@@ -346,7 +394,6 @@
 </div>
 
 <script>
-    // 1. Esto DEBE estar fuera de la función para que funcione el "solo una vez por sesión"
     let mascotShown = false;
 
     function toggleTheme() {
@@ -358,7 +405,6 @@
             html.setAttribute('data-theme', 'dark');
             icon.className = 'ph ph-sun';
 
-            // 2. Lógica de la mascota
             if (!mascotShown) {
                 const mascot = document.getElementById('leaf-mascot');
                 if (mascot) {
@@ -366,7 +412,7 @@
                     mascotShown = true;
                     setTimeout(() => {
                         mascot.classList.add('hidden');
-                    }, 15000); // 15 segundos
+                    }, 15000);
                 }
             }
         } else {
@@ -375,7 +421,6 @@
         }
     }
 
-    // Tu otra función de los acordeones...
     function toggleMeasure(element) {
         element.classList.toggle('active');
     }
